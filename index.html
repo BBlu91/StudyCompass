@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>StudyCompass</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Assistant', sans-serif; }
+    .stage { display:none; }
+    .stage.active { display:block; }
+
+    .value-chip.selected { background:#ea580c; color:#fff; border-color:#ea580c; }
+
+    .followup-btn {
+      background:#f1f5f9;
+      border:2px solid #cbd5e1;
+      padding:12px;
+      border-radius:12px;
+      font-weight:700;
+      transition:.2s;
+      text-align:right;
+    }
+    .followup-btn:hover { background:#e2e8f0; }
+    .followup-btn:disabled { opacity:.5; cursor:not-allowed; }
+
+    /* Slider look (clean, “original-ish”) */
+    .slider-wrap { margin-top: 8px; }
+    input[type="range"] { width: 100%; }
+    .slider-scale {
+      display:flex;
+      justify-content:space-between;
+      font-size:13px;
+      color:#64748b;
+      margin-top:6px;
+      font-weight:700;
+    }
+    .slider-hint {
+      color:#64748b;
+      font-size:14px;
+      font-weight:800;
+      margin-bottom:6px;
+      text-align:center;
+    }
+    .slider-big {
+      text-align:center;
+      font-size:34px;
+      font-weight:900;
+      color:#2563eb;
+      margin-top:8px;
+      line-height:1;
+    }
+    .small-note { font-size: 12px; color:#64748b; }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-50 to-blue-100 min-h-screen flex items-center justify-center p-4">
+
+<div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8">
+
+  <!-- WELCOME -->
+  <div id="stage-welcome" class="stage active text-center">
+    <h1 class="text-4xl font-black mb-3">StudyCompass</h1>
+    <p class="text-lg text-gray-600 mb-6">המצפן שעוזר לך לבחור כיוון לימודים אמיתי</p>
+
+    <div class="mb-4">
+      <input id="user-name" class="w-full border-2 p-4 rounded-xl text-center font-bold"
+             placeholder="איך קוראים לך?" />
+    </div>
+
+    <div class="small-note mb-6">
+      המערכת נועדה למטרות מידע והכוונה כללית בלבד, ואינה מהווה ייעוץ מקצועי, משפטי או מחייב מכל סוג שהוא
+    </div>
+
+    <button onclick="startFlow()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-xl">
+      בוא נתחיל
+    </button>
+  </div>
+
+  <!-- RIASEC -->
+  <div id="stage-riasec" class="stage">
+    <h2 id="question-text" class="text-2xl font-bold mb-4">טוען...</h2>
+
+    <!-- ✅ Slider explanation -->
+    <div class="slider-hint">0 = בכלל לא מסכים · 1 = ממש מסכים</div>
+
+    <div class="slider-wrap">
+      <input type="range" id="riasec-slider" min="0" max="1" step="0.1" value="0.5"
+             oninput="updateRiasecUI(this.value)">
+      <div class="slider-scale">
+        <span>בכלל לא</span>
+        <span>מאוד</span>
+      </div>
+      <div id="riasec-val" class="slider-big">0.5</div>
+    </div>
+
+    <button onclick="handleNextRiasec()" class="w-full mt-6 bg-blue-600 text-white py-4 rounded-xl font-bold">
+      המשך
+    </button>
+  </div>
+
+  <!-- DREAM -->
+  <div id="stage-dream" class="stage">
+    <h2 class="text-2xl font-bold mb-4">דמיין עולם שבו אין מגבלות: לימודים חינם, אין חסמי קבלה, וכל המקצועות מתוגמלים באותו אופן — מה היית רוצה להיות?</h2>
+
+    <input id="dream-title" class="w-full border p-3 rounded mb-3" placeholder="המקצוע" />
+    <textarea id="dream-reason" class="w-full border p-3 rounded mb-4" placeholder="טקסט חופשי (אופציונלי)"></textarea>
+
+    <p class="font-bold mb-2">למה בחרת בכיוון הזה?</p>
+    <!-- ✅ Back to “original” style options -->
+    <div class="space-y-1">
+      <label class="block"><input type="radio" name="dream_value" value="1"> חופש ויצירתיות</label>
+      <label class="block"><input type="radio" name="dream_value" value="2"> עזרה לאחרים ושליחות</label>
+      <label class="block"><input type="radio" name="dream_value" value="3"> פתרון חידות ואתגר</label>
+      <label class="block"><input type="radio" name="dream_value" value="4"> סטטוס, השפעה ומנהיגות</label>
+      <label class="block"><input type="radio" name="dream_value" value="5"> סדר, יציבות ודיוק</label>
+      <label class="block"><input type="radio" name="dream_value" value="6"> תשוקה ועניין טבעי עמוק</label>
+    </div>
+
+    <p class="font-bold mt-4 mb-2">מה היית רוצה לעשות רוב היום במקצוע הזה?</p>
+    <!-- ✅ Back to “original” style options -->
+    <div class="space-y-1">
+      <label class="block"><input type="radio" name="dream_action" value="1"> מחקר וגילוי עובדות</label>
+      <label class="block"><input type="radio" name="dream_action" value="2"> בנייה ותיקון דברים</label>
+      <label class="block"><input type="radio" name="dream_action" value="3"> ייעוץ והקשבה לאנשים</label>
+      <label class="block"><input type="radio" name="dream_action" value="4"> הובלה, שכנוע או הצגה</label>
+      <label class="block"><input type="radio" name="dream_action" value="5"> יצירה ועיצוב מקורי</label>
+      <label class="block"><input type="radio" name="dream_action" value="6"> למידה והעמקה בנושא מסוים</label>
+    </div>
+
+    <p class="font-bold mt-4 mb-2">מה החסם המרכזי שעלול להקשות עליך ללכת על הכיוון הזה?</p>
+    <div class="space-y-1">
+      <label class="block"><input type="radio" name="dream_barrier" value="1"> חוסר ביטחון ביכולת</label>
+      <label class="block"><input type="radio" name="dream_barrier" value="2"> חשש כלכלי</label>
+      <label class="block"><input type="radio" name="dream_barrier" value="3"> פחד מכישלון</label>
+      <label class="block"><input type="radio" name="dream_barrier" value="4"> לחץ מהסביבה</label>
+      <label class="block"><input type="radio" name="dream_barrier" value="5"> חוסר ודאות</label>
+      <label class="block"><input type="radio" name="dream_barrier" value="6"> אין חסם משמעותי</label>
+    </div>
+
+    <button onclick="handleNextDream()" class="w-full mt-6 bg-purple-600 text-white py-4 rounded-xl font-bold">
+      המשך
+    </button>
+  </div>
+  <!-- CONSTRAINTS -->
+  <div id="stage-constraints" class="stage">
+    <p class="font-bold mb-2">עד כמה מתמטיקה גבוהה מרתיעה אותך?</p>
+    <div class="slider-wrap">
+      <input type="range" id="con-math" min="0" max="1" step="0.1" value="0.5"
+             oninput="document.getElementById('con-math-val').innerText=this.value">
+      <div class="slider-scale">
+        <span>לא מרתיע</span>
+        <span>מאוד מרתיע</span>
+      </div>
+      <div id="con-math-val" class="slider-big" style="color:#0f766e;">0.5</div>
+    </div>
+
+    <p class="font-bold mt-6 mb-2">עד כמה חשוב לך לימודים קצרים?</p>
+    <div class="slider-wrap">
+      <input type="range" id="con-length" min="0" max="1" step="0.1" value="0.5"
+             oninput="document.getElementById('con-len-val').innerText=this.value">
+      <div class="slider-scale">
+        <span>לא חשוב</span>
+        <span>מאוד חשוב</span>
+      </div>
+      <div id="con-len-val" class="slider-big" style="color:#0f766e;">0.5</div>
+    </div>
+
+    <button onclick="transitionTo('values')" class="w-full mt-8 bg-teal-600 text-white py-4 rounded-xl font-bold">
+      המשך
+    </button>
+  </div>
+
+  <!-- VALUES -->
+  <div id="stage-values" class="stage">
+    <h2 class="text-2xl font-bold mb-4">בחר 3 ערכים שחשובים לך</h2>
+    <div id="values-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+
+    <button id="finish-btn" disabled onclick="generateFinalReport()"
+            class="w-full mt-6 bg-gray-400 text-white py-4 rounded-xl font-bold">
+      הפקת הדו״ח
+    </button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="stage-results" class="stage">
+    <h2 class="text-3xl font-bold mb-4 text-center">הדו״ח האישי שלך</h2>
+
+    <div id="recs-container" class="flex flex-wrap gap-2 justify-center mb-6"></div>
+    <div id="report-text" class="bg-blue-50 p-6 rounded-xl mb-8 whitespace-pre-wrap"></div>
+
+    <div id="followup-box">
+      <h3 class="text-xl font-bold mb-3">רוצה הרחבה אחת?</h3>
+      <div class="small-note mb-3">אפשר לבחור פעם אחת בלבד (כדי לשמור על תשובה ממוקדת ושקופה).</div>
+
+      <div class="flex flex-col gap-2">
+        <button class="followup-btn" onclick="askFollowup('expand_recommendation','1')">הרחבה על תחום #1</button>
+        <button class="followup-btn" onclick="askFollowup('expand_recommendation','2')">הרחבה על תחום #2</button>
+        <button class="followup-btn" onclick="askFollowup('expand_recommendation','3')">הרחבה על תחום #3</button>
+        <button class="followup-btn" onclick="askFollowup('expand_dream','dream')">הרחבה על תחום החלום</button>
+        <button class="followup-btn" onclick="askFollowup('market_info','1')">מידע אופציונלי על שוק העבודה (תחום #1)</button>
+      </div>
+
+      <div id="followup-answer" class="mt-4 hidden bg-gray-100 p-4 rounded-xl whitespace-pre-wrap"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Works in file:// and http:// modes
+  const BASE_URL = window.location.origin;
+
+
+  let userName = "", currentQuestionId = "";
+  let dreamValueChoice = null, dreamActionChoice = null, dreamBarrierChoice = null;
+  let selectedValues = [], followupUsed = false;
+
+  // ✅ Values back to original (full text)
+  const valuesMap = {
+    innovation: "חדשנות ויצירתיות",
+    social_justice: "צדק חברתי",
+    security: "ביטחון ויציבות כלכלית",
+    intellectual_challenge: "אתגר אינטלקטואלי",
+    benevolence: "עזרה לזולת",
+    self_direction: "עצמאות וחופש פעולה",
+    power: "השפעה ומנהיגות",
+    integrity: "יושרה ואתיקה מקצועית"
+  };
+
+  function transitionTo(id){
+    document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
+    document.getElementById('stage-' + id).classList.add('active');
+  }
+
+  function updateRiasecUI(v){
+    document.getElementById('riasec-val').innerText = Number(v).toFixed(1);
+  }
+
+  async function safeFetch(url, options){
+    try{
+      const res = await fetch(url, options);
+      return res;
+    } catch(e){
+      alert("שגיאת חיבור לשרת. ודא שהשרת רץ: python app.py");
+      throw e;
+    }
+  }
+
+  async function startFlow(){
+    userName = document.getElementById('user-name').value.trim();
+    if(!userName){ alert("נא להזין שם"); return; }
+
+    await safeFetch(`${BASE_URL}/api/reset`, {method:'POST'});
+    transitionTo('riasec');
+    fetchNextQuestion();
+  }
+
+  async function fetchNextQuestion(){
+    const r = await safeFetch(`${BASE_URL}/api/next_question`);
+    const d = await r.json();
+    if(d.status === "question"){
+      currentQuestionId = d.question.id;
+      document.getElementById('question-text').innerText = d.question.text_he;
+
+      // reset slider UI
+      const s = document.getElementById('riasec-slider');
+      s.value = 0.5;
+      updateRiasecUI(0.5);
+    } else {
+      transitionTo('dream');
+    }
+  }
+
+  async function handleNextRiasec(){
+    await safeFetch(`${BASE_URL}/api/answer`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        id: currentQuestionId,
+        score: parseFloat(document.getElementById('riasec-slider').value)
+      })
+    });
+    fetchNextQuestion();
+  }
+
+  function handleNextDream(){
+    const v = document.querySelector('input[name="dream_value"]:checked')?.value;
+    const a = document.querySelector('input[name="dream_action"]:checked')?.value;
+    const b = document.querySelector('input[name="dream_barrier"]:checked')?.value;
+
+    if(!v || !a || !b){
+      alert("כדי להמשיך, בחר אפשרות אחת בכל שלוש השאלות (מניע/עשייה/חסם).");
+      return;
+    }
+    dreamValueChoice = v;
+    dreamActionChoice = a;
+    dreamBarrierChoice = b;
+    transitionTo('constraints');
+  }
+
+  function renderValues(){
+    const g = document.getElementById('values-grid');
+    g.innerHTML = "";
+
+    Object.entries(valuesMap).forEach(([k, label]) => {
+      const d = document.createElement('div');
+      d.className = "value-chip border-2 border-gray-100 p-3 rounded-xl cursor-pointer font-bold bg-gray-50";
+      d.innerText = label;
+
+      d.onclick = () => {
+        if(selectedValues.includes(k)){
+          selectedValues = selectedValues.filter(x => x !== k);
+          d.classList.remove('selected');
+        } else if(selectedValues.length < 3){
+          selectedValues.push(k);
+          d.classList.add('selected');
+        }
+
+        const btn = document.getElementById('finish-btn');
+        btn.disabled = selectedValues.length !== 3;
+        btn.className = btn.disabled
+          ? "w-full mt-6 bg-gray-400 text-white py-4 rounded-xl font-bold"
+          : "w-full mt-6 bg-orange-600 text-white py-4 rounded-xl font-bold";
+      };
+
+      g.appendChild(d);
+    });
+  }
+
+  async function generateFinalReport(){
+    transitionTo('results');
+
+    const payload = {
+      dream_title: document.getElementById('dream-title').value,
+      dream_reason: document.getElementById('dream-reason').value,
+      dream_value_choice: dreamValueChoice,
+      dream_action_choice: dreamActionChoice,
+      dream_barrier_choice: dreamBarrierChoice,
+      constraints: {
+        // UI asks "how scary" and "importance of short studies"
+        // engine expects "comfort with math" and "openness to long track"
+        math_difficulty: 1 - parseFloat(document.getElementById('con-math').value),
+        training_length: 1 - parseFloat(document.getElementById('con-length').value)
+      },
+      selected_values: selectedValues
+    };
+
+    const r = await safeFetch(`${BASE_URL}/api/final_report`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const d = await r.json();
+
+    document.getElementById('recs-container').innerHTML =
+      (d.recommendations || []).map(x =>
+        `<span class="px-4 py-2 bg-white border rounded-full font-bold">${x.name}</span>`
+      ).join('');
+
+    document.getElementById('report-text').innerText = d.report || "לא התקבל דו״ח.";
+  }
+
+  async function askFollowup(type, selection){
+    if(followupUsed) return;
+
+    followupUsed = true;
+    document.querySelectorAll('.followup-btn').forEach(b => b.disabled = true);
+
+    const payload = {
+      followup_type: type,
+      selection: selection,
+      dream_title: document.getElementById('dream-title').value,
+      constraints: {
+        math_difficulty: 1 - parseFloat(document.getElementById('con-math').value),
+        training_length: 1 - parseFloat(document.getElementById('con-length').value)
+      },
+      selected_values: selectedValues
+    };
+
+    const r = await safeFetch(`${BASE_URL}/api/followup`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const d = await r.json();
+
+    const box = document.getElementById('followup-answer');
+    box.classList.remove('hidden');
+    box.innerText = d.answer || "לא התקבלה תשובה.";
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderValues();
+    updateRiasecUI(0.5);
+
+    // init constraint slider numbers
+    document.getElementById('con-math-val').innerText = "0.5";
+    document.getElementById('con-len-val').innerText = "0.5";
+  });
+</script>
+</body>
+</html>
