@@ -18,11 +18,6 @@ ai_agent = CareerAIAgent()
 
 
 @app.route("/", methods=["GET"])
-def health():
-    return "StudyCompass API is running"
-
-
-@app.route("/", methods=["GET"])
 def home():
     return send_file(BASE_DIR / "index.html")
 
@@ -150,3 +145,4 @@ def get_values():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
