@@ -127,5 +127,5 @@ StudyCompass פותח כפרויקט קורס אקדמי ומטרתו להדגי
 
 ## 👤 מחבר
 פותח ע״י  
-**Amit Eliezer**  
+**Amit Eliezer**  **Alon Krichley**
 Technion – Israel Institute of Technology
