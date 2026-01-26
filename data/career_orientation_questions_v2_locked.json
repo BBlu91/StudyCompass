@@ -1,0 +1,1474 @@
+{
+  "metadata": {
+    "schema_version": "1.1",
+    "project": "StudyCompass",
+    "bank_name": "career_orientation_questions_v2_locked",
+    "created_at": "2026-01-20T00:00:00",
+    "language": "he",
+    "scale": "0-1 slider",
+    "dimensions": [
+      "analytical",
+      "investigative",
+      "social",
+      "creative",
+      "enterprising",
+      "hands_on"
+    ],
+    "notes": "Locked question bank v2. Changes: (1) Q005 split into technical-knowledge (analytical) + hands-on practical (hands_on) and original removed; (2) Q010 split into teamwork vs external communication and original removed; (3) Added sub_dimension field to all social questions; (4) Added impact field to all questions for engine compatibility; (5) Expanded bank to 80 total questions (RIASEC only)."
+  },
+  "questions": [
+    {
+      "id": "Q001",
+      "text_he": "בא לי אתגרים שמכריחים לעצור ולחשוב לעומק",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q002",
+      "text_he": "יותר נוח לי לעבוד בסביבה עם מסגרת ברורה ולא הרבה חוסר־ודאות",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q003",
+      "text_he": "אני נהנה ממשימות שדורשות חשיבה מתמטית עמוקה",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q004",
+      "text_he": "יותר מתאים לי לעבוד על משימות מדויקות עם פרטים ברורים",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q006",
+      "text_he": "חשוב לי לעסוק במקצוע שדורש סקרנות וחקירה מתמדת",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q007",
+      "text_he": "אני שואף לעסוק במדע ובמחקר",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q008",
+      "text_he": "אני יודע להתקדם גם כשאין הוראות חד־משמעיות",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q009",
+      "text_he": "בא לי להיות באינטראקציה עם אנשים רוב היום",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "inactive",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "external_communication"
+    },
+    {
+      "id": "Q011",
+      "text_he": "חשוב לי להשקיע ולהיות שם בשביל הצלחה של אחרים",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "support_care"
+    },
+    {
+      "id": "Q012",
+      "text_he": "חשוב לי להקשיב באמת לדעות שונות משלי, גם כשאני לא מסכים",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "support_care"
+    },
+    {
+      "id": "Q013",
+      "text_he": "אני משתדל לעבוד לפי התרבות והכללים הלא־כתובים של הארגון",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "organizational_fit"
+    },
+    {
+      "id": "Q014",
+      "text_he": "אני מרגיש סיפוק מלתת שירות ולעזור לאחרים",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "support_care"
+    },
+    {
+      "id": "Q015",
+      "text_he": "יותר מתאים לי להישאר באותו מקום עבודה לאורך זמן",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "stability_affiliation"
+    },
+    {
+      "id": "Q016",
+      "text_he": "אני נהנה ממשימות שדורשות חשיבה יצירתית",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q017",
+      "text_he": "יש לי עניין בעולם האומנות והיצירה",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q018",
+      "text_he": "אני נוטה לאתגר את ה־“ככה זה” ולנסות לעשות דברים אחרת",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q019",
+      "text_he": "משעמם לי כשדברים צפויים מדי – אני מחפש אקשן ואתגר",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q020",
+      "text_he": "אני מסתדר טוב כשמצופה ממני לפעול בביטחון ולהוביל",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q021",
+      "text_he": "אני רואה את עצמי בתפקידים של הובלה והכוונה",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q022",
+      "text_he": "יותר מתאים לי לעבוד בצורה עצמאית ולא להיות תלוי כל הזמן באחרים",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q023",
+      "text_he": "חשוב לי לראות תוצר ברור של העבודה שלי",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q024",
+      "text_he": "עבודה בלי תוצאה ברורה בסוף פחות זורמת לי",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q025",
+      "text_he": "אני עובד הכי טוב כשפשוט עושים ומתקדמים",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q026",
+      "text_he": "יותר מדבר אליי לעבוד עם דברים פיזיים מאשר רק עם אנשים",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "studycompass_initial_bank",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q027",
+      "text_he": "אני אוהב לצלול לעומק של תחומים חדשים ולהבין איך הם באמת עובדים",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q028",
+      "text_he": "מתאימה לי עבודה שדורשת דיוק גבוה, תשומת לב לפרטים ומינימום טעויות",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q029",
+      "text_he": "יש לי עניין באינטראקציות של שכנוע, תיאום אינטרסים וסגירת הסכמות",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q030",
+      "text_he": "חשוב לי להביא את תפיסת העולם והגישה האישית שלי לדרך שבה אני עובד",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q031",
+      "text_he": "אני מרגיש חיבור טבעי לעשייה חינוכית או טיפולית עם אנשים",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "support_care"
+    },
+    {
+      "id": "Q032",
+      "text_he": "קל לי להישאר שקול ומאוזן גם כשיש עומס או מתח סביבי",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q033",
+      "text_he": "למידת שפה חדשה מסקרנת אותי ונותנת לי תחושת התקדמות",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q034",
+      "text_he": "אני נהנה להסביר רעיונות או תכנים ולראות אחרים מבינים בזכותי",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "support_care"
+    },
+    {
+      "id": "Q035",
+      "text_he": "חשוב לי לעבוד במקצוע שמעריך סבלנות ותקשורת נעימה עם אנשים",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "support_care"
+    },
+    {
+      "id": "Q036",
+      "text_he": "חשוב לי ליזום ולהשפיע על החלטות ותהליכים סביבי",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q037",
+      "text_he": "אני נהנה לבטא את עצמי דרך אומנות, יצירה או אמצעי הבעה חזותיים/יצירתיים",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q038",
+      "text_he": "כשאני נכנס למסגרת חדשה, קל לי לתפוס מקום ולהישמע",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q039",
+      "text_he": "אני נוטה לחשוב מחוץ לקופסה ולמצוא פתרונות יצירתיים",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q040",
+      "text_he": "יש לי הנאה אמיתית מלפתח רעיונות דרך כתיבה או יצירת תוכן",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q041",
+      "text_he": "יש לי עניין בתפקידים שכוללים שכנוע, הצגת ערך וקידום רעיונות או מוצרים",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q042",
+      "text_he": "אני רוצה לעבוד בתחום שמתפתח כל הזמן ויש בו חידושים טכנולוגיים רבים",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q043",
+      "text_he": "אני נהנה מסביבה שבה הדברים זזים, משתנים ודורשים הסתגלות מתמדת",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q044",
+      "text_he": "אני עובד הכי טוב בסביבה שקטה וממוקדת, בלי הרבה הסחות דעת",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q045",
+      "text_he": "אני רוצה לעבוד בסביבה יצירתית וגמישה שמאפשרת חופש פעולה",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q046",
+      "text_he": "מעניין אותי להבין איך מכשירים ומערכות טכנולוגיות עובדים מבפנים",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q047",
+      "text_he": "עבודה מעשית עם הידיים נותנת לי תחושת סיפוק",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q048",
+      "text_he": "אני נמשך להרפתקאות ולקיחת סיכונים מחושבים",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q049",
+      "text_he": "נוח לי לדבר בפני אנשים ולהחזיק נוכחות מול קבוצה",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q050",
+      "text_he": "עבודות שמצריכות בקרה, ירידה לפרטים והקפדה מתמשכת מתאימות לי",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q051",
+      "text_he": "אני מעדיף לעבוד בצורה עצמאית ולא להיות תלוי במסגרת ניהולית צמודה",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q052",
+      "text_he": "אני מעדיף לעבוד בסביבה משרדית ובעיקר מול מחשב",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q053",
+      "text_he": "קל לי להתיידד במהירות, ואני נהנה מתפקידים שמערבים היכרות עם אנשים חדשים",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "site_questions_added_in_chat",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "external_communication"
+    },
+    {
+      "id": "Q054",
+      "text_he": "חשוב לי לעבוד במקצוע שבו נדרש שימוש בידע טכני (כגון מחשבים, מערכות או תוכנות).",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "lock_edit_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q055",
+      "text_he": "אני נהנה מעבודה מעשית שכוללת שימוש בידיים, כלים או ציוד פיזי.",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "lock_edit_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q056",
+      "text_he": "אני מעדיף לעבוד כחלק מצוות שבו המשימות מתבצעות במשותף, ולא באופן עצמאי לחלוטין.",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "lock_edit_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "teamwork"
+    },
+    {
+      "id": "Q057",
+      "text_he": "נוח לי לעבוד בסביבה שבה אני נמצא בתקשורת יומיומית עם גורמים שונים מחוץ לצוות הקבוע שלי (כגון לקוחות, ממשקים או גורמי חוץ).",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "lock_edit_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "external_communication"
+    },
+    {
+      "id": "Q058",
+      "text_he": "אני נהנה מעבודה שכוללת עשייה פיזית ולא רק חשיבה או תכנון.",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q059",
+      "text_he": "אני לומד הכי טוב כשאני מתנסה ועושה בעצמי, ולא רק מקריאה או הסבר.",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q060",
+      "text_he": "כשיש משימה חדשה, אני מעדיף להתחיל לפעול ולהבין תוך כדי, ולא לתכנן הכול מראש.",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q061",
+      "text_he": "עבודה שמתרחשת בשטח או בסביבה מעשית מדברת אליי יותר מעבודה משרדית בלבד.",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q062",
+      "text_he": "אני משתפר בעיקר דרך ניסוי, טעייה והתנסות מעשית.",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q063",
+      "text_he": "קצב עבודה מהיר ועשייה מתמשכת חשובים לי יותר מדיוק תאורטי מושלם.",
+      "dimension": "hands_on",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "hands_on": 1.0
+      }
+    },
+    {
+      "id": "Q064",
+      "text_he": "אני נהנה למצוא פתרונות לא שגרתיים לבעיות קיימות.",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q065",
+      "text_he": "חשוב לי שתהיה לי חופש פעולה בגישה ובדרך שבה אני מבצע משימות.",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q066",
+      "text_he": "חשוב לי להביא לידי ביטוי את הסגנון והחשיבה האישיים שלי בעבודה.",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q067",
+      "text_he": "משימות שמתחילות מדף ריק ומצריכות בנייה של רעיון מדברות אליי במיוחד.",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q068",
+      "text_he": "אני נוטה לערער על דרכי עבודה מקובלות ולחפש גישות חדשות.",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q069",
+      "text_he": "עבודה שמאפשרת גיוון, שינוי וחדשנות לאורך זמן מתאימה לי יותר מעבודה שגרתית וקבועה.",
+      "dimension": "creative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "creative": 1.0
+      }
+    },
+    {
+      "id": "Q070",
+      "text_he": "אני נהנה להעמיק בנושא אחד לאורך זמן עד שאני מבין אותו לעומק.",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q071",
+      "text_he": "קל לי ללמוד תחום חדש באופן עצמאי, גם בלי מסגרת לימודית ברורה.",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q072",
+      "text_he": "אני נוטה לשאול שאלות ולחקור לפני שאני מקבל הסברים או פתרונות קיימים.",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q073",
+      "text_he": "נושאים מורכבים שדורשים הבנה עמוקה ואתגור מחשבתי מסקרנים אותי.",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q074",
+      "text_he": "אני נהנה מתהליך של בדיקה, ניסוי והסקת מסקנות, גם אם הוא ארוך ולא מיידי.",
+      "dimension": "investigative",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "investigative": 1.0
+      }
+    },
+    {
+      "id": "Q075",
+      "text_he": "לפני שאני מתחיל משימה, חשוב לי להבין את התמונה המלאה ולנתח את האפשרויות.",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q076",
+      "text_he": "אני מרגיש בנוח בעבודה שדורשת דיוק גבוה, סדר ושיטתיות.",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q077",
+      "text_he": "עבודה שמבוססת על נתונים, חוקים או נהלים ברורים מתאימה לי.",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q078",
+      "text_he": "אני מעדיף לצמצם אי־ודאות ולקבל החלטות על בסיס מידע וניתוח ולא אינטואיציה בלבד.",
+      "dimension": "analytical",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "analytical": 1.0
+      }
+    },
+    {
+      "id": "Q079",
+      "text_he": "נוח לי ליזום מהלכים ולהניע תהליכים, גם כשאין הנחיות ברורות.",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q080",
+      "text_he": "אני נהנה לשכנע אחרים, להציג רעיונות ולהשפיע על החלטות.",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q081",
+      "text_he": "קבלת החלטות גם כשאין את כל המידע מרגישה לי טבעית ולא מרתיעה.",
+      "dimension": "enterprising",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "enterprising": 1.0
+      }
+    },
+    {
+      "id": "Q082",
+      "text_he": "נוח לי לעבוד מול אנשים שאינם מהצוות שלי (לקוחות/ממשקים), גם כשנדרש תיאום מתמשך לאורך היום.",
+      "dimension": "social",
+      "polarity": 1,
+      "response_scale": {
+        "min": 0.0,
+        "max": 1.0,
+        "type": "slider"
+      },
+      "tags": [],
+      "source": "bank_expansion_2026_01_20",
+      "status": "active",
+      "notes": "",
+      "impact": {
+        "social": 1.0
+      },
+      "sub_dimension": "external_communication"
+    }
+  ]
+}

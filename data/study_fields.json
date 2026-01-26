@@ -1,0 +1,178 @@
+[
+  {
+    "id": "computer_science_software",
+    "name": "מדעי המחשב והנדסת תוכנה",
+    "interests": {"analytical": 1.0, "investigative": 0.8, "social": 0.3, "creative": 0.7, "enterprising": 0.6, "hands_on": 0.4},
+    "constraints": {"math_difficulty": 1.0, "training_length": 0.4, "study_intensity": 0.9},
+    "salary_potential": 1.0,
+    "core_values": ["innovation", "intellectual_challenge", "self_direction"]
+  },
+  {
+    "id": "medicine_health_sciences",
+    "name": "רפואה ומדעי הבריאות הקליניים",
+    "interests": {"analytical": 0.8, "investigative": 1.0, "social": 0.9, "creative": 0.2, "enterprising": 0.4, "hands_on": 0.7},
+    "constraints": {"math_difficulty": 0.7, "training_length": 1.0, "study_intensity": 1.0},
+    "salary_potential": 0.9,
+    "core_values": ["benevolence", "integrity", "intellectual_challenge"]
+  },
+  {
+    "id": "law_and_governance",
+    "name": "משפטים, ממשל ומשפט ציבורי",
+    "interests": {"analytical": 0.9, "investigative": 0.7, "social": 0.6, "creative": 0.4, "enterprising": 0.8, "hands_on": 0.2},
+    "constraints": {"math_difficulty": 0.3, "training_length": 0.5, "study_intensity": 0.8},
+    "salary_potential": 0.6,
+    "core_values": ["integrity", "power_influence", "universalism"]
+  },
+  {
+    "id": "psychology_behavioral_sciences",
+    "name": "פסיכולוגיה ומדעי ההתנהגות",
+    "interests": {"analytical": 0.6, "investigative": 0.9, "social": 1.0, "creative": 0.5, "enterprising": 0.4, "hands_on": 0.1},
+    "constraints": {"math_difficulty": 0.4, "training_length": 0.9, "study_intensity": 0.7},
+    "salary_potential": 0.6,
+    "core_values": ["benevolence", "self_direction", "intellectual_challenge"]
+  },
+  {
+    "id": "mechanical_robotics_engineering",
+    "name": "הנדסת מכונות, רובוטיקה ומערכות",
+    "interests": {"analytical": 0.9, "investigative": 0.6, "social": 0.2, "creative": 0.6, "enterprising": 0.5, "hands_on": 1.0},
+    "constraints": {"math_difficulty": 0.9, "training_length": 0.5, "study_intensity": 0.8},
+    "salary_potential": 0.8,
+    "core_values": ["innovation", "security", "intellectual_challenge"]
+  },
+  {
+    "id": "social_work_community",
+    "name": "עבודה סוציאלית וטיפול קהילתי",
+    "interests": {"analytical": 0.3, "investigative": 0.4, "social": 1.0, "creative": 0.3, "enterprising": 0.2, "hands_on": 0.2},
+    "constraints": {"math_difficulty": 0.2, "training_length": 0.4, "study_intensity": 0.6},
+    "salary_potential": 0.3,
+    "core_values": ["benevolence", "universalism", "integrity"]
+  },
+  {
+    "id": "economics_data_strategy",
+    "name": "כלכלה, דאטה ואסטרטגיה פיננסית",
+    "interests": {"analytical": 0.9, "investigative": 0.5, "social": 0.4, "creative": 0.2, "enterprising": 0.9, "hands_on": 0.1},
+    "constraints": {"math_difficulty": 0.8, "training_length": 0.4, "study_intensity": 0.7},
+    "salary_potential": 0.9,
+    "core_values": ["power_influence", "security", "integrity"]
+  },
+  {
+    "id": "visual_communication_design",
+    "name": "תקשורת חזותית, עיצוב ומדיה",
+    "interests": {"analytical": 0.2, "investigative": 0.4, "social": 0.4, "creative": 1.0, "enterprising": 0.6, "hands_on": 0.8},
+    "constraints": {"math_difficulty": 0.2, "training_length": 0.4, "study_intensity": 0.6},
+    "salary_potential": 0.5,
+    "core_values": ["innovation", "self_direction", "passion"]
+  },
+  {
+    "id": "education_leadership",
+    "name": "חינוך, הוראה ומנהיגות חינוכית",
+    "interests": {"analytical": 0.4, "investigative": 0.5, "social": 1.0, "creative": 0.7, "enterprising": 0.6, "hands_on": 0.3},
+    "constraints": {"math_difficulty": 0.3, "training_length": 0.5, "study_intensity": 0.6},
+    "salary_potential": 0.4,
+    "core_values": ["benevolence", "universalism", "security"]
+  },
+  {
+    "id": "life_sciences_biomedical",
+    "name": "מדעי החיים ומחקר ביו-רפואי",
+    "interests": {"analytical": 0.8, "investigative": 1.0, "social": 0.3, "creative": 0.6, "enterprising": 0.4, "hands_on": 0.8},
+    "constraints": {"math_difficulty": 0.8, "training_length": 0.6, "study_intensity": 0.8},
+    "salary_potential": 0.7,
+    "core_values": ["innovation", "intellectual_challenge", "integrity"]
+  },
+  {
+    "id": "architecture_urban_planning",
+    "name": "אדריכלות ותכנון עירוני",
+    "interests": {"analytical": 0.7, "investigative": 0.6, "social": 0.4, "creative": 0.9, "enterprising": 0.6, "hands_on": 0.7},
+    "constraints": {"math_difficulty": 0.6, "training_length": 0.8, "study_intensity": 0.9},
+    "salary_potential": 0.7,
+    "core_values": ["innovation", "self_direction", "intellectual_challenge"]
+  },
+  {
+    "id": "nursing_healthcare_admin",
+    "name": "סיעוד וניהול מערכות בריאות",
+    "interests": {"analytical": 0.5, "investigative": 0.6, "social": 1.0, "creative": 0.1, "enterprising": 0.3, "hands_on": 0.9},
+    "constraints": {"math_difficulty": 0.5, "training_length": 0.5, "study_intensity": 0.9},
+    "salary_potential": 0.7,
+    "core_values": ["benevolence", "security", "integrity"]
+  },
+  {
+    "id": "data_science_ai_applied",
+    "name": "מדעי הנתונים ובינה מלאכותית יישומית",
+    "interests": {
+      "analytical": 1.0,
+      "investigative": 0.8,
+      "social": 0.5,
+      "creative": 0.6,
+      "enterprising": 0.6,
+      "hands_on": 0.3
+    },
+    "constraints": {
+      "math_difficulty": 0.9,
+      "training_length": 0.4,
+      "study_intensity": 0.8
+    },
+    "salary_potential": 1.0,
+    "core_values": ["innovation", "intellectual_challenge", "self_direction"],
+    "tags": ["hybrid_social_science", "tech"]
+  },
+  {
+    "id": "hci_ux_research_human_factors",
+    "name": "חקר חוויית משתמש (HCI/UX Research) והנדסת אנוש",
+    "interests": {
+      "analytical": 0.6,
+      "investigative": 0.7,
+      "social": 0.8,
+      "creative": 0.8,
+      "enterprising": 0.5,
+      "hands_on": 0.4
+    },
+    "constraints": {
+      "math_difficulty": 0.5,
+      "training_length": 0.5,
+      "study_intensity": 0.7
+    },
+    "salary_potential": 0.8,
+    "core_values": ["innovation", "self_direction", "intellectual_challenge"],
+    "tags": ["hybrid_social_science", "design", "tech"]
+  },
+  {
+    "id": "industrial_engineering_information_systems",
+    "name": "הנדסת תעשייה וניהול ומערכות מידע",
+    "interests": {
+      "analytical": 0.8,
+      "investigative": 0.5,
+      "social": 0.6,
+      "creative": 0.4,
+      "enterprising": 0.8,
+      "hands_on": 0.3
+    },
+    "constraints": {
+      "math_difficulty": 0.7,
+      "training_length": 0.5,
+      "study_intensity": 0.7
+    },
+    "salary_potential": 0.85,
+    "core_values": ["security", "power_influence", "integrity"],
+    "tags": ["hybrid_social_science", "business", "tech"]
+  },
+  {
+    "id": "clinical_research_biostatistics",
+    "name": "מחקר קליני, ביוסטטיסטיקה ואפידמיולוגיה",
+    "interests": {
+      "analytical": 0.8,
+      "investigative": 1.0,
+      "social": 0.6,
+      "creative": 0.3,
+      "enterprising": 0.4,
+      "hands_on": 0.4
+    },
+    "constraints": {
+      "math_difficulty": 0.7,
+      "training_length": 0.7,
+      "study_intensity": 0.8
+    },
+    "salary_potential": 0.8,
+    "core_values": ["integrity", "intellectual_challenge", "innovation"],
+    "tags": ["hybrid_social_science", "health"]
+  }
+]
