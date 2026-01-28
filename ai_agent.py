@@ -119,7 +119,7 @@ class CareerAIAgent:
                 ],
                 model=self.model,
                 temperature=0.3,
-                max_tokens=1100,
+                max_tokens=1500,
             )
 
             raw = (response.choices[0].message.content or "").strip()
@@ -165,7 +165,7 @@ class CareerAIAgent:
             ],
             model=self.model,
             temperature=0.3,
-            max_tokens=1100,
+            max_tokens=1500,
         )
         
         print(f"[AI AGENT] ✓ Groq API call successful")
@@ -203,5 +203,6 @@ class CareerAIAgent:
             return "החיבור למערכת נכשל (timeout). אנא נסה שוב."
         else:
             return f"שגיאה בהפקת תשובה: {error_msg}"
+
 
 
