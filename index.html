@@ -569,8 +569,10 @@
 }
 
 
-  async function askFollowup(type, selection){
-  if(followupUsed) return;
+// Replace your readResponseSafely and askFollowup functions with these:
+
+async function askFollowup(type, selection) {
+  if (followupUsed) return;
 
   const box = document.getElementById('followup-answer');
   box.classList.remove('hidden');
@@ -578,12 +580,8 @@
   box.scrollTop = 0;
   box.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  // ננעל רק בזמן הבקשה. אם נכשל — נאפשר לנסות שוב.
-  followupUsed = true;
-  document.querySelectorAll('.followup-btn').forEach(b => {
-    b.disabled = true;
-    b.classList.add('opacity-60','cursor-not-allowed');
-  });
+  // Disable buttons during request
+  disableFollowupButtons(true);
 
   const payload = {
     followup_type: type,
@@ -596,52 +594,60 @@
     selected_values: selectedValues
   };
 
-  try{
-    const res = await fetch(`${BASE_URL}/api/followup`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
+  try {
+    const res = await safeFetch(`${BASE_URL}/api/followup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      timeoutMs: 45000  // 45 second timeout for LLM response
     });
 
-    const { text, json, contentType } = await readResponseSafely(res);
+    const parsed = await safeReadJson(res);
 
-    // אם השרת החזיר שגיאת HTTP
-    if(!res.ok){
-      console.error("Followup HTTP error:", res.status, contentType, text);
-      box.innerText =
+    // Handle HTTP errors
+    if (!res.ok) {
+      console.error("Followup HTTP error:", res.status, parsed.rawText);
+      box.innerText = 
         `שגיאה מהשרת (${res.status}).\n` +
-        (json?.error || json?.message || text?.slice(0, 600) || "אין פרטים.");
-      // לאפשר Retry
-      followupUsed = false;
-      document.querySelectorAll('.followup-btn').forEach(b => b.disabled = false);
+        (parsed.data?.error || parsed.data?.message || 
+         parsed.rawText?.slice(0, 600) || "נסה שוב.");
+      
+      // Allow retry
+      disableFollowupButtons(false);
       return;
     }
 
-    // אם זה לא JSON תקין או חסר answer
-    const answer = (json && json.answer != null) ? String(json.answer).trim() : "";
-    if(!answer){
-      console.error("Followup invalid JSON payload:", { json, text });
-      box.innerText =
-        "התקבלה תשובה לא תקינה מהשרת (חסר answer / לא JSON).\n" +
-        (text ? `\nתוכן (חלקי):\n${text.slice(0, 600)}` : "");
-      // לאפשר Retry
-      followupUsed = false;
-      document.querySelectorAll('.followup-btn').forEach(b => b.disabled = false);
+    // Handle invalid JSON or missing answer
+    if (!parsed.ok || !parsed.data || !parsed.data.answer) {
+      console.error("Followup invalid response:", { 
+        parsed, 
+        rawText: parsed.rawText?.slice(0, 300) 
+      });
+      box.innerText = 
+        "התקבלה תשובה לא תקינה מהשרת.\n" +
+        (parsed.rawText ? `\nתוכן:\n${parsed.rawText.slice(0, 600)}` : "");
+      
+      // Allow retry
+      disableFollowupButtons(false);
       return;
     }
 
+    // Success!
+    const answer = String(parsed.data.answer).trim();
     box.innerText = answer;
     box.scrollTop = 0;
     box.scrollIntoView({ behavior: "smooth", block: "start" });
 
-    // הצלחה => נשאר נעול (בחירה אחת בלבד)
-  } catch(e){
-    console.error("Followup fetch error:", e);
-    box.innerText = `שגיאת רשת/חיבור בהפקת ההרחבה.\n${e?.message || ""}`;
+    // Lock buttons after successful response (one-time only)
+    followupUsed = true;
 
-    // לאפשר Retry
-    followupUsed = false;
-    document.querySelectorAll('.followup-btn').forEach(b => b.disabled = false);
+  } catch (e) {
+    console.error("Followup network error:", e);
+    box.innerText = 
+      `שגיאת רשת בהפקת ההרחבה.\n${e?.message || ""}\n\nנסה שוב.`;
+    
+    // Allow retry
+    disableFollowupButtons(false);
   }
 }
 
