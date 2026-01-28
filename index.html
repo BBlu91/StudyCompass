@@ -5,6 +5,7 @@
   <title>StudyCompass</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;700;800&display=swap" rel="stylesheet">
+
   <style>
     body { font-family: 'Assistant', sans-serif; }
     .stage { display:none; }
@@ -51,16 +52,68 @@
       line-height:1;
     }
     .small-note { font-size: 12px; color:#64748b; }
+
+    /* ✅ (NEW) Subtle background illustration overlay (education-themed) */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:0.12;
+      background-repeat:repeat;
+      background-size: 360px 360px;
+      /* Simple line-art SVG pattern (books / study) */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'%3E%3Cg fill='none' stroke='%230f172a' stroke-width='2' opacity='0.9'%3E%3Cpath d='M60 85c20-10 45-10 65 0v190c-20-10-45-10-65 0V85z'/%3E%3Cpath d='M125 85c20-10 45-10 65 0v190c-20-10-45-10-65 0V85z'/%3E%3Cpath d='M200 95h70c10 0 18 8 18 18v150c0 10-8 18-18 18h-70V95z'/%3E%3Cpath d='M220 125h50'/%3E%3Cpath d='M220 155h50'/%3E%3Cpath d='M220 185h40'/%3E%3Ccircle cx='285' cy='90' r='14'/%3E%3Cpath d='M278 90h14'/%3E%3Cpath d='M285 83v14'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* ✅ (NEW) Follow-up answer: allow long LLM answers comfortably */
+    #followup-answer{
+      max-height: 360px;      /* enough room for long answers */
+      overflow-y: auto;       /* scroll instead of "cut" */
+      line-height: 1.7;
+    }
+
+    /* ✅ (NEW) Report area: slightly more readable */
+    #report-text{
+      line-height: 1.85;
+    }
   </style>
 </head>
 
 <body class="bg-gradient-to-br from-slate-50 to-blue-100 min-h-screen flex items-center justify-center p-4">
 
-<div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8">
+<div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 relative overflow-hidden">
+
+  <!-- ✅ (NEW) Global subtle subtitle (changes per stage) -->
+  <div class="text-center mb-4">
+    <p id="stage-subtitle" class="text-sm font-extrabold text-slate-500"></p>
+  </div>
 
   <!-- WELCOME -->
   <div id="stage-welcome" class="stage active text-center">
-    <h1 class="text-4xl font-black mb-3">StudyCompass</h1>
+    <!-- ✅ (NEW) Compass visual on top (inline SVG, no external assets) -->
+    <div class="flex justify-center mb-4">
+      <div class="w-24 h-24 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm flex items-center justify-center">
+        <svg width="64" height="64" viewBox="0 0 64 64" aria-label="Compass icon" role="img">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#2563eb"/>
+              <stop offset="1" stop-color="#7c3aed"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="24" fill="none" stroke="#0f172a" stroke-width="2" opacity="0.25"/>
+          <circle cx="32" cy="32" r="18" fill="none" stroke="#0f172a" stroke-width="2" opacity="0.15"/>
+          <path d="M32 12v6" stroke="#0f172a" stroke-width="2" opacity="0.4"/>
+          <path d="M32 46v6" stroke="#0f172a" stroke-width="2" opacity="0.25"/>
+          <path d="M12 32h6" stroke="#0f172a" stroke-width="2" opacity="0.25"/>
+          <path d="M46 32h6" stroke="#0f172a" stroke-width="2" opacity="0.25"/>
+          <path d="M32 18l9 21-9-4-9 4 9-21z" fill="url(#g)"/>
+          <circle cx="32" cy="32" r="2.5" fill="#0f172a" opacity="0.6"/>
+        </svg>
+      </div>
+    </div>
+
+    <h1 class="text-4xl font-black mb-2">StudyCompass</h1>
     <p class="text-lg text-gray-600 mb-6">המצפן שעוזר לך לבחור כיוון לימודים אמיתי</p>
 
     <div class="mb-4">
@@ -107,7 +160,6 @@
     <textarea id="dream-reason" class="w-full border p-3 rounded mb-4" placeholder="טקסט חופשי (אופציונלי)"></textarea>
 
     <p class="font-bold mb-2">למה בחרת בכיוון הזה?</p>
-    <!-- ✅ Back to “original” style options -->
     <div class="space-y-1">
       <label class="block"><input type="radio" name="dream_value" value="1"> חופש ויצירתיות</label>
       <label class="block"><input type="radio" name="dream_value" value="2"> עזרה לאחרים ושליחות</label>
@@ -118,7 +170,6 @@
     </div>
 
     <p class="font-bold mt-4 mb-2">מה היית רוצה לעשות רוב היום במקצוע הזה?</p>
-    <!-- ✅ Back to “original” style options -->
     <div class="space-y-1">
       <label class="block"><input type="radio" name="dream_action" value="1"> מחקר וגילוי עובדות</label>
       <label class="block"><input type="radio" name="dream_action" value="2"> בנייה ותיקון דברים</label>
@@ -142,6 +193,7 @@
       המשך
     </button>
   </div>
+
   <!-- CONSTRAINTS -->
   <div id="stage-constraints" class="stage">
     <p class="font-bold mb-2">עד כמה מתמטיקה גבוהה מרתיעה אותך?</p>
@@ -173,7 +225,8 @@
 
   <!-- VALUES -->
   <div id="stage-values" class="stage">
-    <h2 class="text-2xl font-bold mb-4">בחר 3 ערכים שחשובים לך</h2>
+    <h2 class="text-2xl font-bold mb-2">בחר 3 ערכים שחשובים לך</h2>
+    <p class="text-sm text-slate-500 font-bold mb-4">זה עוזר לנו לדייק את ההתאמה בין כיווני לימוד למה שבאמת חשוב לך.</p>
     <div id="values-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
 
     <button id="finish-btn" disabled onclick="generateFinalReport()"
@@ -185,6 +238,14 @@
   <!-- RESULTS -->
   <div id="stage-results" class="stage">
     <h2 class="text-3xl font-bold mb-4 text-center">הדו״ח האישי שלך</h2>
+
+    <!-- ✅ (NEW) Loading indicator for report generation -->
+    <div id="report-loading" class="hidden mb-5">
+      <div class="flex items-center justify-center gap-3 bg-slate-50 border border-slate-200 rounded-xl p-4">
+        <div class="w-5 h-5 rounded-full border-2 border-slate-300 border-t-slate-700 animate-spin"></div>
+        <div class="font-extrabold text-slate-600">מעבד את התשובות שלך ומפיק דו״ח…</div>
+      </div>
+    </div>
 
     <div id="recs-container" class="flex flex-wrap gap-2 justify-center mb-6"></div>
     <div id="report-text" class="bg-blue-50 p-6 rounded-xl mb-8 whitespace-pre-wrap"></div>
@@ -201,16 +262,20 @@
         <button class="followup-btn" onclick="askFollowup('market_info','1')">מידע אופציונלי על שוק העבודה (תחום #1)</button>
       </div>
 
+      <!-- ✅ (UPDATED) Larger + scrollable follow-up answer box -->
       <div id="followup-answer" class="mt-4 hidden bg-gray-100 p-4 rounded-xl whitespace-pre-wrap"></div>
     </div>
   </div>
 
+  <!-- ✅ (NEW) Small academic credit footer -->
+  <div class="mt-8 pt-4 border-t border-slate-100 text-center text-xs font-bold text-slate-400">
+    StudyCompass – פרויקט אקדמי להכוונה וקבלת החלטות בליווי AI
+  </div>
 </div>
 
 <script>
   // Works in file:// and http:// modes
   const BASE_URL = window.location.origin;
-
 
   let userName = "", currentQuestionId = "";
   let dreamValueChoice = null, dreamActionChoice = null, dreamBarrierChoice = null;
@@ -228,9 +293,27 @@
     integrity: "יושרה ואתיקה מקצועית"
   };
 
+  // ✅ (NEW) Stage subtitles (approved suggestion #2)
+  const stageSubtitles = {
+    welcome: "ברוכים הבאים — מתחילים בכמה שאלות קצרות כדי לדייק כיוון.",
+    riasec: "אנחנו בונים את הפרופיל האישי שלך — אין תשובות נכונות או לא נכונות.",
+    dream: "החלום הגדול: תחשוב חופשי, בלי מגבלות ובלי שיפוט.",
+    constraints: "דיוק נוסף: כמה אילוצים חשובים יעזרו לנו לסנן נכון.",
+    values: "עכשיו בוחרים ערכים — כדי לוודא שהכיוון מתאים למה שחשוב לך באמת.",
+    results: "סיימנו — הנה הסיכום האישי שלך, בצורה ממוקדת ושקופה."
+  };
+
+  function setStageSubtitle(stageId){
+    const key = String(stageId || "").replace("stage-","").trim();
+    const el = document.getElementById("stage-subtitle");
+    if(!el) return;
+    el.innerText = stageSubtitles[key] || "";
+  }
+
   function transitionTo(id){
     document.querySelectorAll('.stage').forEach(s => s.classList.remove('active'));
     document.getElementById('stage-' + id).classList.add('active');
+    setStageSubtitle(id);
   }
 
   function updateRiasecUI(v){
@@ -328,8 +411,25 @@
     });
   }
 
+  // ✅ (NEW) Show/hide loading state for report generation (approved suggestion #3)
+  function setReportLoading(isLoading){
+    const loading = document.getElementById("report-loading");
+    const report = document.getElementById("report-text");
+    const recs = document.getElementById("recs-container");
+    if(!loading || !report || !recs) return;
+
+    if(isLoading){
+      loading.classList.remove("hidden");
+      report.innerText = "";
+      recs.innerHTML = "";
+    } else {
+      loading.classList.add("hidden");
+    }
+  }
+
   async function generateFinalReport(){
     transitionTo('results');
+    setReportLoading(true);
 
     const payload = {
       dream_title: document.getElementById('dream-title').value,
@@ -359,6 +459,7 @@
       ).join('');
 
     document.getElementById('report-text').innerText = d.report || "לא התקבל דו״ח.";
+    setReportLoading(false);
   }
 
   async function askFollowup(type, selection){
@@ -366,6 +467,10 @@
 
     followupUsed = true;
     document.querySelectorAll('.followup-btn').forEach(b => b.disabled = true);
+
+    const box = document.getElementById('followup-answer');
+    box.classList.remove('hidden');
+    box.innerText = "מפיק הרחבה…";
 
     const payload = {
       followup_type: type,
@@ -385,8 +490,6 @@
     });
     const d = await r.json();
 
-    const box = document.getElementById('followup-answer');
-    box.classList.remove('hidden');
     box.innerText = d.answer || "לא התקבלה תשובה.";
   }
 
@@ -397,7 +500,11 @@
     // init constraint slider numbers
     document.getElementById('con-math-val').innerText = "0.5";
     document.getElementById('con-len-val').innerText = "0.5";
+
+    // ✅ set initial subtitle
+    setStageSubtitle("welcome");
   });
 </script>
 </body>
 </html>
+
