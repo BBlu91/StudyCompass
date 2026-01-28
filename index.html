@@ -556,90 +556,95 @@
 
   // ---------- FIXED followup (never stuck, scrollable, retry on failure) ----------
 
-  async function askFollowup(type, selection){
-    if(followupUsed) return;
 
-    const box = document.getElementById('followup-answer');
-    box.classList.remove('hidden');
-    box.innerText = "מפיק הרחבה…";
+  async function readResponseSafely(res) {
+  const contentType = (res.headers.get("content-type") || "").toLowerCase();
+  const text = await res.text(); // קוראים פעם אחת
+
+  let json = null;
+  if (contentType.includes("application/json") || text.trim().startsWith("{") || text.trim().startsWith("[")) {
+    try { json = JSON.parse(text); } catch (_) {}
+  }
+  return { text, json, contentType };
+}
+
+
+  async function askFollowup(type, selection){
+  if(followupUsed) return;
+
+  const box = document.getElementById('followup-answer');
+  box.classList.remove('hidden');
+  box.innerText = "מפיק הרחבה…";
+  box.scrollTop = 0;
+  box.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  // ננעל רק בזמן הבקשה. אם נכשל — נאפשר לנסות שוב.
+  followupUsed = true;
+  document.querySelectorAll('.followup-btn').forEach(b => {
+    b.disabled = true;
+    b.classList.add('opacity-60','cursor-not-allowed');
+  });
+
+  const payload = {
+    followup_type: type,
+    selection: selection,
+    dream_title: document.getElementById('dream-title')?.value || "",
+    constraints: {
+      math_difficulty: 1 - parseFloat(document.getElementById('con-math')?.value || "0"),
+      training_length: 1 - parseFloat(document.getElementById('con-length')?.value || "0")
+    },
+    selected_values: selectedValues
+  };
+
+  try{
+    const res = await fetch(`${BASE_URL}/api/followup`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+
+    const { text, json, contentType } = await readResponseSafely(res);
+
+    // אם השרת החזיר שגיאת HTTP
+    if(!res.ok){
+      console.error("Followup HTTP error:", res.status, contentType, text);
+      box.innerText =
+        `שגיאה מהשרת (${res.status}).\n` +
+        (json?.error || json?.message || text?.slice(0, 600) || "אין פרטים.");
+      // לאפשר Retry
+      followupUsed = false;
+      document.querySelectorAll('.followup-btn').forEach(b => b.disabled = false);
+      return;
+    }
+
+    // אם זה לא JSON תקין או חסר answer
+    const answer = (json && json.answer != null) ? String(json.answer).trim() : "";
+    if(!answer){
+      console.error("Followup invalid JSON payload:", { json, text });
+      box.innerText =
+        "התקבלה תשובה לא תקינה מהשרת (חסר answer / לא JSON).\n" +
+        (text ? `\nתוכן (חלקי):\n${text.slice(0, 600)}` : "");
+      // לאפשר Retry
+      followupUsed = false;
+      document.querySelectorAll('.followup-btn').forEach(b => b.disabled = false);
+      return;
+    }
+
+    box.innerText = answer;
     box.scrollTop = 0;
     box.scrollIntoView({ behavior: "smooth", block: "start" });
 
-    // disable while in-flight, but allow retry if it fails
-    followupUsed = true;
-    disableFollowupButtons(true);
+    // הצלחה => נשאר נעול (בחירה אחת בלבד)
+  } catch(e){
+    console.error("Followup fetch error:", e);
+    box.innerText = `שגיאת רשת/חיבור בהפקת ההרחבה.\n${e?.message || ""}`;
 
-    const payload = {
-      followup_type: type,
-      selection: selection,
-      dream_title: document.getElementById('dream-title')?.value || "",
-      constraints: {
-        math_difficulty: 1 - parseFloat(document.getElementById('con-math')?.value || "0"),
-        training_length: 1 - parseFloat(document.getElementById('con-length')?.value || "0")
-      },
-      selected_values: selectedValues
-    };
-
-    try{
-      const r = await safeFetch(`${BASE_URL}/api/followup`, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(payload),
-        timeoutMs: 45000
-      });
-
-      const parsed = await safeReadJson(r);
-
-      if(!r.ok){
-        const serverMsg =
-          (parsed.ok && parsed.data && (parsed.data.error || parsed.data.message)) ||
-          (parsed.rawText ? parsed.rawText.slice(0, 500) : "");
-        box.innerText =
-          `שגיאה מהשרת (${r.status}).\n` +
-          (serverMsg ? `\nפרטים:\n${serverMsg}` : "נסה שוב בעוד רגע.");
-
-        // allow retry
-        followupUsed = false;
-        disableFollowupButtons(false);
-        box.scrollTop = 0;
-        box.scrollIntoView({ behavior: "smooth", block: "start" });
-        return;
-      }
-
-      if(!parsed.ok || !parsed.data){
-        const preview = parsed.rawText ? parsed.rawText.slice(0, 500) : "";
-        box.innerText =
-          "התקבלה תשובה לא תקינה (לא JSON).\n" +
-          (preview ? `\nתוכן (חלקי):\n${preview}` : "");
-
-        // allow retry
-        followupUsed = false;
-        disableFollowupButtons(false);
-        box.scrollTop = 0;
-        box.scrollIntoView({ behavior: "smooth", block: "start" });
-        return;
-      }
-
-      const d = parsed.data;
-      const answer = (d.answer || "").toString().trim();
-
-      box.innerText = answer || "לא התקבלה תשובה.";
-
-      // success -> keep disabled & used
-      box.scrollTop = 0;
-      box.scrollIntoView({ behavior: "smooth", block: "start" });
-    } catch(e){
-      box.innerText =
-        `לא הצלחתי להביא הרחבה.\n${e.message || "שגיאה לא צפויה."}`;
-
-      // allow retry
-      followupUsed = false;
-      disableFollowupButtons(false);
-
-      box.scrollTop = 0;
-      box.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    // לאפשר Retry
+    followupUsed = false;
+    document.querySelectorAll('.followup-btn').forEach(b => b.disabled = false);
   }
+}
+
 
   document.addEventListener('DOMContentLoaded', () => {
     renderValues();
