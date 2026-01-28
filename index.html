@@ -68,9 +68,10 @@
 
     /* ✅ (NEW) Follow-up answer: allow long LLM answers comfortably */
     #followup-answer{
-      max-height: 360px;      /* enough room for long answers */
+      max-height: 320px;      /* enough room for long answers */
       overflow-y: auto;       /* scroll instead of "cut" */
-      line-height: 1.7;
+      line-height: 1.6;
+      font-size: 15px;
     }
 
     /* ✅ (NEW) Report area: slightly more readable */
@@ -491,6 +492,7 @@
     const d = await r.json();
 
     box.innerText = d.answer || "לא התקבלה תשובה.";
+    box.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   document.addEventListener('DOMContentLoaded', () => {
