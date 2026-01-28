@@ -119,7 +119,7 @@ def followup():
         recommendations=recs
     )
 
-    answer = ai_agent.generate_followup(followup_context)
+    answer = ai_agent.generate_followup(followup_context, followup_type)
 
     return jsonify({
         "success": True,
@@ -145,4 +145,5 @@ def get_values():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
