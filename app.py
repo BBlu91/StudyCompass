@@ -87,8 +87,8 @@ def generate_report():
     })
 
 
-   @app.route('/api/followup', methods=['POST'])
-   def followup():
+ @app.route('/api/followup', methods=['POST'])
+ def followup():
     """
     ONE guided follow-up (not a free text question).
     """
@@ -190,6 +190,7 @@ def get_values():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
