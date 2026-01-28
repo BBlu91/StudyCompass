@@ -91,40 +91,57 @@ def generate_report():
 def followup():
     """
     ONE guided follow-up (not a free text question).
-    Client sends:
-      - followup_type: "expand_recommendation" | "expand_dream" | "market_info"
-      - selection: "1"/"2"/"3" or "dream"
-      - plus the same payload needed to recompute recs/context (constraints, selected_values, dream_title)
     """
-    data = request.json or {}
+    try:
+        data = request.json or {}
+        print(f"[FOLLOWUP] Received data: {data}")
 
-    followup_type = (data.get("followup_type") or "").strip()
-    selection = str(data.get("selection") or "").strip()
+        followup_type = (data.get("followup_type") or "").strip()
+        selection = str(data.get("selection") or "").strip()
 
-    if followup_type not in {"expand_recommendation", "expand_dream", "market_info"}:
-        return jsonify({"success": False, "error": "Invalid followup_type"}), 400
+        if followup_type not in {"expand_recommendation", "expand_dream", "market_info"}:
+            return jsonify({"success": False, "error": "Invalid followup_type"}), 400
 
-    constraints = data.get("constraints", {}) or {}
-    selected_values = data.get("selected_values", []) or []
+        constraints = data.get("constraints", {}) or {}
+        selected_values = data.get("selected_values", []) or []
 
-    # Recompute engine recs as single source of truth
-    recs = engine.get_recommendations(constraints, selected_values)
+        # Recompute engine recs
+        print(f"[FOLLOWUP] Computing recommendations...")
+        recs = engine.get_recommendations(constraints, selected_values)
+        print(f"[FOLLOWUP] Got {len(recs)} recommendations")
 
-    dream_title = (data.get("dream_title") or "").strip()
+        dream_title = (data.get("dream_title") or "").strip()
+        print(f"[FOLLOWUP] Dream title: {dream_title}")
 
-    followup_context = engine.get_followup_context_for_ai(
-        followup_type=followup_type,
-        selection=selection,
-        dream_title=dream_title,
-        recommendations=recs
-    )
+        # Get context
+        print(f"[FOLLOWUP] Building context...")
+        followup_context = engine.get_followup_context_for_ai(
+            followup_type=followup_type,
+            selection=selection,
+            dream_title=dream_title,
+            recommendations=recs
+        )
+        print(f"[FOLLOWUP] Context built: {len(followup_context)} chars")
 
-    answer = ai_agent.generate_followup(followup_context, followup_type)
+        # Generate answer (NOTE: ai_agent.generate_followup only takes 1 param)
+        print(f"[FOLLOWUP] Calling AI agent...")
+        answer = ai_agent.generate_followup(followup_context)
+        print(f"[FOLLOWUP] Answer generated: {len(answer)} chars")
 
-    return jsonify({
-        "success": True,
-        "answer": answer
-    })
+        return jsonify({
+            "success": True,
+            "answer": answer
+        })
+
+    except Exception as e:
+        print(f"[FOLLOWUP ERROR] {type(e).__name__}: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        
+        return jsonify({
+            "success": False,
+            "error": f"שגיאה: {str(e)}"
+        }), 500
 
 
 @app.route('/api/values_list', methods=['GET'])
@@ -145,5 +162,6 @@ def get_values():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
