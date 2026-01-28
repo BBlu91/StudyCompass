@@ -463,27 +463,30 @@
     setReportLoading(false);
   }
 
-  async function askFollowup(type, selection){
-    if(followupUsed) return;
+ async function askFollowup(type, selection){
+  if(followupUsed) return;
 
-    followupUsed = true;
-    document.querySelectorAll('.followup-btn').forEach(b => b.disabled = true);
+  followupUsed = true;
+  document.querySelectorAll('.followup-btn').forEach(b => b.disabled = true);
 
-    const box = document.getElementById('followup-answer');
-    box.classList.remove('hidden');
-    box.innerText = "מפיק הרחבה…";
+  const box = document.getElementById('followup-answer');
+  box.classList.remove('hidden');
+  box.innerText = "מפיק הרחבה…";
+  box.scrollTop = 0; // תמיד להתחיל למעלה
+  box.scrollIntoView({ behavior: "smooth", block: "start" }); // שיראו את התיבה מיד
 
-    const payload = {
-      followup_type: type,
-      selection: selection,
-      dream_title: document.getElementById('dream-title').value,
-      constraints: {
-        math_difficulty: 1 - parseFloat(document.getElementById('con-math').value),
-        training_length: 1 - parseFloat(document.getElementById('con-length').value)
-      },
-      selected_values: selectedValues
-    };
+  const payload = {
+    followup_type: type,
+    selection: selection,
+    dream_title: document.getElementById('dream-title').value,
+    constraints: {
+      math_difficulty: 1 - parseFloat(document.getElementById('con-math').value),
+      training_length: 1 - parseFloat(document.getElementById('con-length').value)
+    },
+    selected_values: selectedValues
+  };
 
+  try{
     const r = await safeFetch(`${BASE_URL}/api/followup`, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
@@ -492,8 +495,14 @@
     const d = await r.json();
 
     box.innerText = d.answer || "לא התקבלה תשובה.";
+    box.scrollTop = 0; // אחרי שהתשובה נכנסה — להישאר בתחילת הטקסט
     box.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  } catch(e){
+    box.innerText = "שגיאה בהפקת ההרחבה. בדוק Console/Render logs.";
   }
+}
+
 
   document.addEventListener('DOMContentLoaded', () => {
     renderValues();
