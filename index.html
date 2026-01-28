@@ -53,7 +53,7 @@
     }
     .small-note { font-size: 12px; color:#64748b; }
 
-    /* ✅ (NEW) Subtle background illustration overlay (education-themed) */
+    /* ✅ Subtle background illustration overlay (education-themed) */
     body::before{
       content:"";
       position:fixed;
@@ -62,19 +62,18 @@
       opacity:0.12;
       background-repeat:repeat;
       background-size: 360px 360px;
-      /* Simple line-art SVG pattern (books / study) */
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'%3E%3Cg fill='none' stroke='%230f172a' stroke-width='2' opacity='0.9'%3E%3Cpath d='M60 85c20-10 45-10 65 0v190c-20-10-45-10-65 0V85z'/%3E%3Cpath d='M125 85c20-10 45-10 65 0v190c-20-10-45-10-65 0V85z'/%3E%3Cpath d='M200 95h70c10 0 18 8 18 18v150c0 10-8 18-18 18h-70V95z'/%3E%3Cpath d='M220 125h50'/%3E%3Cpath d='M220 155h50'/%3E%3Cpath d='M220 185h40'/%3E%3Ccircle cx='285' cy='90' r='14'/%3E%3Cpath d='M278 90h14'/%3E%3Cpath d='M285 83v14'/%3E%3C/g%3E%3C/svg%3E");
     }
 
-    /* ✅ (NEW) Follow-up answer: allow long LLM answers comfortably */
+    /* ✅ Follow-up answer: allow long LLM answers comfortably */
     #followup-answer{
-      max-height: 320px;      /* enough room for long answers */
-      overflow-y: auto;       /* scroll instead of "cut" */
+      max-height: 320px;
+      overflow-y: auto;
       line-height: 1.6;
       font-size: 15px;
     }
 
-    /* ✅ (NEW) Report area: slightly more readable */
+    /* ✅ Report area: slightly more readable */
     #report-text{
       line-height: 1.85;
     }
@@ -83,16 +82,18 @@
 
 <body class="bg-gradient-to-br from-slate-50 to-blue-100 min-h-screen flex items-center justify-center p-4">
 
-<div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 relative overflow-hidden">
+<!-- IMPORTANT FIX:
+     Was: overflow-hidden (can visually "cut" content on smaller screens / long reports)
+     Now: allow vertical scroll inside the card, without breaking the design -->
+<div class="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 relative overflow-x-hidden overflow-y-auto max-h-[92vh]">
 
-  <!-- ✅ (NEW) Global subtle subtitle (changes per stage) -->
+  <!-- Global subtle subtitle -->
   <div class="text-center mb-4">
     <p id="stage-subtitle" class="text-sm font-extrabold text-slate-500"></p>
   </div>
 
   <!-- WELCOME -->
   <div id="stage-welcome" class="stage active text-center">
-    <!-- ✅ (NEW) Compass visual on top (inline SVG, no external assets) -->
     <div class="flex justify-center mb-4">
       <div class="w-24 h-24 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm flex items-center justify-center">
         <svg width="64" height="64" viewBox="0 0 64 64" aria-label="Compass icon" role="img">
@@ -135,7 +136,6 @@
   <div id="stage-riasec" class="stage">
     <h2 id="question-text" class="text-2xl font-bold mb-4">טוען...</h2>
 
-    <!-- ✅ Slider explanation -->
     <div class="slider-hint">0 = בכלל לא מסכים · 1 = ממש מסכים</div>
 
     <div class="slider-wrap">
@@ -240,7 +240,6 @@
   <div id="stage-results" class="stage">
     <h2 class="text-3xl font-bold mb-4 text-center">הדו״ח האישי שלך</h2>
 
-    <!-- ✅ (NEW) Loading indicator for report generation -->
     <div id="report-loading" class="hidden mb-5">
       <div class="flex items-center justify-center gap-3 bg-slate-50 border border-slate-200 rounded-xl p-4">
         <div class="w-5 h-5 rounded-full border-2 border-slate-300 border-t-slate-700 animate-spin"></div>
@@ -263,26 +262,22 @@
         <button class="followup-btn" onclick="askFollowup('market_info','1')">מידע אופציונלי על שוק העבודה (תחום #1)</button>
       </div>
 
-      <!-- ✅ (UPDATED) Larger + scrollable follow-up answer box -->
-      <div id="followup-answer" class="mt-4 hidden bg-gray-100 p-4 rounded-xl whitespace-pre-wrap"></div>
+      <div id="followup-answer" class="mt-4 hidden bg-gray-100 p-4 rounded-xl whitespace-pre-wrap border border-gray-200"></div>
     </div>
   </div>
 
-  <!-- ✅ (NEW) Small academic credit footer -->
   <div class="mt-8 pt-4 border-t border-slate-100 text-center text-xs font-bold text-slate-400">
     StudyCompass – פרויקט אקדמי להכוונה וקבלת החלטות בליווי AI
   </div>
 </div>
 
 <script>
-  // Works in file:// and http:// modes
   const BASE_URL = window.location.origin;
 
   let userName = "", currentQuestionId = "";
   let dreamValueChoice = null, dreamActionChoice = null, dreamBarrierChoice = null;
   let selectedValues = [], followupUsed = false;
 
-  // ✅ Values back to original (full text)
   const valuesMap = {
     innovation: "חדשנות ויצירתיות",
     social_justice: "צדק חברתי",
@@ -294,7 +289,6 @@
     integrity: "יושרה ואתיקה מקצועית"
   };
 
-  // ✅ (NEW) Stage subtitles (approved suggestion #2)
   const stageSubtitles = {
     welcome: "ברוכים הבאים — מתחילים בכמה שאלות קצרות כדי לדייק כיוון.",
     riasec: "אנחנו בונים את הפרופיל האישי שלך — אין תשובות נכונות או לא נכונות.",
@@ -321,51 +315,126 @@
     document.getElementById('riasec-val').innerText = Number(v).toFixed(1);
   }
 
-  async function safeFetch(url, options){
+  // ---------- Robust network + JSON helpers ----------
+
+  async function safeFetch(url, options = {}){
+    const controller = new AbortController();
+    const timeoutMs = options.timeoutMs ?? 25000;
+    const t = setTimeout(() => controller.abort(), timeoutMs);
+
     try{
-      const res = await fetch(url, options);
+      const res = await fetch(url, { ...options, signal: controller.signal });
       return res;
-    } catch(e){
-      alert("שגיאת חיבור לשרת. ודא שהשרת רץ: python app.py");
+    } catch(err){
+      const e = new Error(
+        err?.name === "AbortError"
+          ? "תם הזמן לבקשה (Timeout). נסה שוב."
+          : "שגיאת רשת. בדוק חיבור ונסה שוב."
+      );
+      e.cause = err;
       throw e;
+    } finally {
+      clearTimeout(t);
     }
   }
+
+  async function safeReadJson(response){
+    const contentType = (response.headers.get('content-type') || '').toLowerCase();
+    const text = await response.text();
+
+    const looksJson = contentType.includes('application/json')
+      || text.trim().startsWith('{')
+      || text.trim().startsWith('[');
+
+    if(looksJson){
+      try{
+        return { ok: true, data: JSON.parse(text), rawText: text };
+      } catch(e){
+        return { ok: false, data: null, rawText: text, parseError: e };
+      }
+    }
+
+    return { ok: false, data: null, rawText: text };
+  }
+
+  function disableFollowupButtons(disabled){
+    document.querySelectorAll('.followup-btn').forEach(b => {
+      b.disabled = disabled;
+      if(disabled){
+        b.classList.add('opacity-60', 'cursor-not-allowed');
+      } else {
+        b.classList.remove('opacity-60', 'cursor-not-allowed');
+      }
+    });
+  }
+
+  // ---------- Flow ----------
 
   async function startFlow(){
     userName = document.getElementById('user-name').value.trim();
     if(!userName){ alert("נא להזין שם"); return; }
 
-    await safeFetch(`${BASE_URL}/api/reset`, {method:'POST'});
-    transitionTo('riasec');
-    fetchNextQuestion();
+    try{
+      await safeFetch(`${BASE_URL}/api/reset`, {method:'POST', timeoutMs: 15000});
+      transitionTo('riasec');
+      fetchNextQuestion();
+    } catch(e){
+      alert("לא הצלחתי להתחבר לשרת. ודא שהשרת רץ / Render פעיל.");
+      throw e;
+    }
   }
 
   async function fetchNextQuestion(){
-    const r = await safeFetch(`${BASE_URL}/api/next_question`);
-    const d = await r.json();
-    if(d.status === "question"){
-      currentQuestionId = d.question.id;
-      document.getElementById('question-text').innerText = d.question.text_he;
+    try{
+      const r = await safeFetch(`${BASE_URL}/api/next_question`, { timeoutMs: 20000 });
+      const parsed = await safeReadJson(r);
 
-      // reset slider UI
-      const s = document.getElementById('riasec-slider');
-      s.value = 0.5;
-      updateRiasecUI(0.5);
-    } else {
-      transitionTo('dream');
+      if(!r.ok){
+        const preview = parsed.rawText ? parsed.rawText.slice(0, 300) : "";
+        document.getElementById('question-text').innerText =
+          `שגיאת שרת (${r.status}). נסה שוב.\n${preview}`;
+        return;
+      }
+
+      if(!parsed.ok || !parsed.data){
+        document.getElementById('question-text').innerText =
+          "התקבלה תשובה לא תקינה מהשרת. נסה שוב.";
+        return;
+      }
+
+      const d = parsed.data;
+
+      if(d.status === "question"){
+        currentQuestionId = d.question.id;
+        document.getElementById('question-text').innerText = d.question.text_he;
+
+        const s = document.getElementById('riasec-slider');
+        s.value = 0.5;
+        updateRiasecUI(0.5);
+      } else {
+        transitionTo('dream');
+      }
+    } catch(e){
+      document.getElementById('question-text').innerText =
+        "שגיאת רשת בעת טעינת שאלה. נסה שוב.";
     }
   }
 
   async function handleNextRiasec(){
-    await safeFetch(`${BASE_URL}/api/answer`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        id: currentQuestionId,
-        score: parseFloat(document.getElementById('riasec-slider').value)
-      })
-    });
-    fetchNextQuestion();
+    try{
+      await safeFetch(`${BASE_URL}/api/answer`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          id: currentQuestionId,
+          score: parseFloat(document.getElementById('riasec-slider').value)
+        }),
+        timeoutMs: 20000
+      });
+      fetchNextQuestion();
+    } catch(e){
+      alert("שגיאה בשליחת תשובה. נסה שוב.");
+    }
   }
 
   function handleNextDream(){
@@ -412,7 +481,6 @@
     });
   }
 
-  // ✅ (NEW) Show/hide loading state for report generation (approved suggestion #3)
   function setReportLoading(isLoading){
     const loading = document.getElementById("report-loading");
     const report = document.getElementById("report-text");
@@ -439,83 +507,149 @@
       dream_action_choice: dreamActionChoice,
       dream_barrier_choice: dreamBarrierChoice,
       constraints: {
-        // UI asks "how scary" and "importance of short studies"
-        // engine expects "comfort with math" and "openness to long track"
         math_difficulty: 1 - parseFloat(document.getElementById('con-math').value),
         training_length: 1 - parseFloat(document.getElementById('con-length').value)
       },
       selected_values: selectedValues
     };
 
-    const r = await safeFetch(`${BASE_URL}/api/final_report`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
-    });
-    const d = await r.json();
+    try{
+      const r = await safeFetch(`${BASE_URL}/api/final_report`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload),
+        timeoutMs: 45000
+      });
 
-    document.getElementById('recs-container').innerHTML =
-      (d.recommendations || []).map(x =>
-        `<span class="px-4 py-2 bg-white border rounded-full font-bold">${x.name}</span>`
-      ).join('');
+      const parsed = await safeReadJson(r);
 
-    document.getElementById('report-text').innerText = d.report || "לא התקבל דו״ח.";
-    setReportLoading(false);
+      if(!r.ok){
+        const preview = parsed.rawText ? parsed.rawText.slice(0, 400) : "";
+        document.getElementById('report-text').innerText =
+          `שגיאה מהשרת (${r.status}).\n` + (preview ? `\n${preview}` : "נסה שוב בעוד רגע.");
+        setReportLoading(false);
+        return;
+      }
+
+      if(!parsed.ok || !parsed.data){
+        document.getElementById('report-text').innerText =
+          "התקבלה תשובה לא תקינה מהשרת (לא JSON). נסה שוב.";
+        setReportLoading(false);
+        return;
+      }
+
+      const d = parsed.data;
+
+      document.getElementById('recs-container').innerHTML =
+        (d.recommendations || []).map(x =>
+          `<span class="px-4 py-2 bg-white border rounded-full font-bold">${x.name}</span>`
+        ).join('');
+
+      document.getElementById('report-text').innerText = d.report || "לא התקבל דו״ח.";
+      setReportLoading(false);
+    } catch(e){
+      document.getElementById('report-text').innerText =
+        `שגיאת רשת בהפקת הדו״ח.\n${e.message || ""}`;
+      setReportLoading(false);
+    }
   }
 
- async function askFollowup(type, selection){
-  if(followupUsed) return;
+  // ---------- FIXED followup (never stuck, scrollable, retry on failure) ----------
 
-  followupUsed = true;
-  document.querySelectorAll('.followup-btn').forEach(b => b.disabled = true);
+  async function askFollowup(type, selection){
+    if(followupUsed) return;
 
-  const box = document.getElementById('followup-answer');
-  box.classList.remove('hidden');
-  box.innerText = "מפיק הרחבה…";
-  box.scrollTop = 0; // תמיד להתחיל למעלה
-  box.scrollIntoView({ behavior: "smooth", block: "start" }); // שיראו את התיבה מיד
-
-  const payload = {
-    followup_type: type,
-    selection: selection,
-    dream_title: document.getElementById('dream-title').value,
-    constraints: {
-      math_difficulty: 1 - parseFloat(document.getElementById('con-math').value),
-      training_length: 1 - parseFloat(document.getElementById('con-length').value)
-    },
-    selected_values: selectedValues
-  };
-
-  try{
-    const r = await safeFetch(`${BASE_URL}/api/followup`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
-    });
-    const d = await r.json();
-
-    box.innerText = d.answer || "לא התקבלה תשובה.";
-    box.scrollTop = 0; // אחרי שהתשובה נכנסה — להישאר בתחילת הטקסט
+    const box = document.getElementById('followup-answer');
+    box.classList.remove('hidden');
+    box.innerText = "מפיק הרחבה…";
+    box.scrollTop = 0;
     box.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  } catch(e){
-    box.innerText = "שגיאה בהפקת ההרחבה. בדוק Console/Render logs.";
-  }
-}
+    // disable while in-flight, but allow retry if it fails
+    followupUsed = true;
+    disableFollowupButtons(true);
 
+    const payload = {
+      followup_type: type,
+      selection: selection,
+      dream_title: document.getElementById('dream-title')?.value || "",
+      constraints: {
+        math_difficulty: 1 - parseFloat(document.getElementById('con-math')?.value || "0"),
+        training_length: 1 - parseFloat(document.getElementById('con-length')?.value || "0")
+      },
+      selected_values: selectedValues
+    };
+
+    try{
+      const r = await safeFetch(`${BASE_URL}/api/followup`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload),
+        timeoutMs: 45000
+      });
+
+      const parsed = await safeReadJson(r);
+
+      if(!r.ok){
+        const serverMsg =
+          (parsed.ok && parsed.data && (parsed.data.error || parsed.data.message)) ||
+          (parsed.rawText ? parsed.rawText.slice(0, 500) : "");
+        box.innerText =
+          `שגיאה מהשרת (${r.status}).\n` +
+          (serverMsg ? `\nפרטים:\n${serverMsg}` : "נסה שוב בעוד רגע.");
+
+        // allow retry
+        followupUsed = false;
+        disableFollowupButtons(false);
+        box.scrollTop = 0;
+        box.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      if(!parsed.ok || !parsed.data){
+        const preview = parsed.rawText ? parsed.rawText.slice(0, 500) : "";
+        box.innerText =
+          "התקבלה תשובה לא תקינה (לא JSON).\n" +
+          (preview ? `\nתוכן (חלקי):\n${preview}` : "");
+
+        // allow retry
+        followupUsed = false;
+        disableFollowupButtons(false);
+        box.scrollTop = 0;
+        box.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+
+      const d = parsed.data;
+      const answer = (d.answer || "").toString().trim();
+
+      box.innerText = answer || "לא התקבלה תשובה.";
+
+      // success -> keep disabled & used
+      box.scrollTop = 0;
+      box.scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch(e){
+      box.innerText =
+        `לא הצלחתי להביא הרחבה.\n${e.message || "שגיאה לא צפויה."}`;
+
+      // allow retry
+      followupUsed = false;
+      disableFollowupButtons(false);
+
+      box.scrollTop = 0;
+      box.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
 
   document.addEventListener('DOMContentLoaded', () => {
     renderValues();
     updateRiasecUI(0.5);
 
-    // init constraint slider numbers
     document.getElementById('con-math-val').innerText = "0.5";
     document.getElementById('con-len-val').innerText = "0.5";
 
-    // ✅ set initial subtitle
     setStageSubtitle("welcome");
   });
 </script>
 </body>
 </html>
-
