@@ -66,7 +66,7 @@ def generate_report():
     # Build structured dream data (DO NOT invent)
     dream_data = {
         "title": data.get("dream_title", "") or "",
-        "dream_free_text": data.get("dream_reason", "") or "",  # optional free text
+        "dream_free_text": data.get("dream_reason", "") or "",
         "dream_value_choice": data.get("dream_value_choice", None),
         "dream_action_choice": data.get("dream_action_choice", None),
         "dream_barrier_choice": data.get("dream_barrier_choice", None),
@@ -87,8 +87,8 @@ def generate_report():
     })
 
 
- @app.route('/api/followup', methods=['POST'])
- def followup():
+@app.route('/api/followup', methods=['POST'])
+def followup():
     """
     ONE guided follow-up (not a free text question).
     """
@@ -135,7 +135,6 @@ def generate_report():
                 recommendations=recs
             )
             print(f"✓ Context built ({len(followup_context)} chars)")
-            print(f"Context preview: {followup_context[:200]}...")
         except Exception as e:
             print(f"✗ Error in get_followup_context_for_ai: {e}")
             import traceback
@@ -190,6 +189,7 @@ def get_values():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
