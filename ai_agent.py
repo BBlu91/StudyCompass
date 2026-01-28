@@ -39,7 +39,6 @@ BASE_REPORT_SYSTEM_PROMPT = """
 - כל סעיף קצר וממוקד.
 """.strip()
 
-
 FOLLOWUP_SYSTEM_PROMPT = """
 אתה StudyCompass Follow-up Generator.
 
@@ -135,74 +134,76 @@ class CareerAIAgent:
     # Follow-up
     # ---------------------------
     def generate_followup(self, followup_context: str) -> str:
-    """
-    Generate a followup answer with comprehensive error handling.
-    """
-    print(f"[AI AGENT] generate_followup called")
-    print(f"[AI AGENT] Context length: {len(followup_context) if followup_context else 0}")
-    print(f"[AI AGENT] API key exists: {bool(self.api_key)}")
-    print(f"[AI AGENT] Client exists: {bool(self.client)}")
-    
-    # Validate input
-    if not followup_context or not followup_context.strip():
-        print(f"[AI AGENT] ERROR: Empty context received")
-        return "שגיאה: לא התקבל הקשר לשאלה."
-    
-    # Check client
-    ok, err = self._ensure_client()
-    if not ok:
-        print(f"[AI AGENT] ERROR: Client check failed: {err}")
-        return err
+        """
+               Generate a followup answer with comprehensive error handling.
+               """
 
-    try:
-        print(f"[AI AGENT] Calling Groq API...")
-        print(f"[AI AGENT] Model: {self.model}")
-        
-        response = self.client.chat.completions.create(
-            messages=[
-                {"role": "system", "content": FOLLOWUP_SYSTEM_PROMPT},
-                {"role": "user", "content": followup_context},
-            ],
-            model=self.model,
-            temperature=0.3,
-            max_tokens=1500,
-        )
-        
-        print(f"[AI AGENT] ✓ Groq API call successful")
-        
-        # Extract response
-        raw = (response.choices[0].message.content or "").strip()
-        
-        if not raw:
-            print(f"[AI AGENT] WARNING: Empty response from Groq")
-            return "לא התקבלה תשובת הרחבה מהמערכת."
+        print(f"[AI AGENT] generate_followup called")
+        print(f"[AI AGENT] Context length: {len(followup_context) if followup_context else 0}")
+        print(f"[AI AGENT] API key exists: {bool(self.api_key)}")
+        print(f"[AI AGENT] Client exists: {bool(self.client)}")
 
-        print(f"[AI AGENT] ✓ Response received ({len(raw)} chars)")
-        
-        # Clean and return
-        cleaned = self._clean_text(raw)
-        print(f"[AI AGENT] ✓ Response cleaned ({len(cleaned)} chars)")
-        
-        return cleaned
+        # Validate input
+        if not followup_context or not followup_context.strip():
+            print(f"[AI AGENT] ERROR: Empty context received")
+            return "שגיאה: לא התקבל הקשר לשאלה."
 
-    except Exception as e:
-        print(f"[AI AGENT] ERROR in generate_followup:")
-        print(f"[AI AGENT] Error type: {type(e).__name__}")
-        print(f"[AI AGENT] Error message: {str(e)}")
-        
-        import traceback
-        traceback.print_exc()
-        
-        # Return user-friendly error
-        error_msg = str(e)
-        if "api" in error_msg.lower() or "key" in error_msg.lower():
-            return "שגיאה בחיבור למערכת הבינה המלאכותית. אנא נסה שוב."
-        elif "rate" in error_msg.lower() or "limit" in error_msg.lower():
-            return "המערכת עמוסה כרגע. אנא המתן רגע ונסה שוב."
-        elif "timeout" in error_msg.lower():
-            return "החיבור למערכת נכשל (timeout). אנא נסה שוב."
-        else:
-            return f"שגיאה בהפקת תשובה: {error_msg}"
+        # Check client
+        ok, err = self._ensure_client()
+        if not ok:
+            print(f"[AI AGENT] ERROR: Client check failed: {err}")
+            return err
+
+        try:
+            print(f"[AI AGENT] Calling Groq API...")
+            print(f"[AI AGENT] Model: {self.model}")
+
+            response = self.client.chat.completions.create(
+                messages=[
+                    {"role": "system", "content": FOLLOWUP_SYSTEM_PROMPT},
+                    {"role": "user", "content": followup_context},
+                ],
+                model=self.model,
+                temperature=0.3,
+                max_tokens=1500,
+            )
+
+            print(f"[AI AGENT] ✓ Groq API call successful")
+
+            # Extract response
+            raw = (response.choices[0].message.content or "").strip()
+
+            if not raw:
+                print(f"[AI AGENT] WARNING: Empty response from Groq")
+                return "לא התקבלה תשובת הרחבה מהמערכת."
+
+            print(f"[AI AGENT] ✓ Response received ({len(raw)} chars)")
+
+            # Clean and return
+            cleaned = self._clean_text(raw)
+            print(f"[AI AGENT] ✓ Response cleaned ({len(cleaned)} chars)")
+
+            return cleaned
+
+        except Exception as e:
+            print(f"[AI AGENT] ERROR in generate_followup:")
+            print(f"[AI AGENT] Error type: {type(e).__name__}")
+            print(f"[AI AGENT] Error message: {str(e)}")
+
+            import traceback
+            traceback.print_exc()
+
+            # Return user-friendly error
+            error_msg = str(e)
+            if "api" in error_msg.lower() or "key" in error_msg.lower():
+                return "שגיאה בחיבור למערכת הבינה המלאכותית. אנא נסה שוב."
+            elif "rate" in error_msg.lower() or "limit" in error_msg.lower():
+                return "המערכת עמוסה כרגע. אנא המתן רגע ונסה שוב."
+            elif "timeout" in error_msg.lower():
+                return "החיבור למערכת נכשל (timeout). אנא נסה שוב."
+            else:
+                return f"שגיאה בהפקת תשובה: {error_msg}"
+
 
 
 
