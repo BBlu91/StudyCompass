@@ -87,60 +87,88 @@ def generate_report():
     })
 
 
-@app.route('/api/followup', methods=['POST'])
-def followup():
+   @app.route('/api/followup', methods=['POST'])
+   def followup():
     """
     ONE guided follow-up (not a free text question).
     """
     try:
         data = request.json or {}
-        print(f"[FOLLOWUP] Received data: {data}")
+        print(f"=== FOLLOWUP START ===")
+        print(f"Raw data: {data}")
 
         followup_type = (data.get("followup_type") or "").strip()
         selection = str(data.get("selection") or "").strip()
+        
+        print(f"followup_type: '{followup_type}'")
+        print(f"selection: '{selection}'")
 
         if followup_type not in {"expand_recommendation", "expand_dream", "market_info"}:
+            print(f"Invalid followup_type: {followup_type}")
             return jsonify({"success": False, "error": "Invalid followup_type"}), 400
 
         constraints = data.get("constraints", {}) or {}
         selected_values = data.get("selected_values", []) or []
+        
+        print(f"constraints: {constraints}")
+        print(f"selected_values: {selected_values}")
 
-        # Recompute engine recs
-        print(f"[FOLLOWUP] Computing recommendations...")
-        recs = engine.get_recommendations(constraints, selected_values)
-        print(f"[FOLLOWUP] Got {len(recs)} recommendations")
+        # Step 1: Recompute recs
+        print("Step 1: Computing recommendations...")
+        try:
+            recs = engine.get_recommendations(constraints, selected_values)
+            print(f"✓ Got {len(recs)} recommendations")
+        except Exception as e:
+            print(f"✗ Error in get_recommendations: {e}")
+            raise
 
         dream_title = (data.get("dream_title") or "").strip()
-        print(f"[FOLLOWUP] Dream title: {dream_title}")
+        print(f"dream_title: '{dream_title}'")
 
-        # Get context
-        print(f"[FOLLOWUP] Building context...")
-        followup_context = engine.get_followup_context_for_ai(
-            followup_type=followup_type,
-            selection=selection,
-            dream_title=dream_title,
-            recommendations=recs
-        )
-        print(f"[FOLLOWUP] Context built: {len(followup_context)} chars")
+        # Step 2: Build context
+        print("Step 2: Building followup context...")
+        try:
+            followup_context = engine.get_followup_context_for_ai(
+                followup_type=followup_type,
+                selection=selection,
+                dream_title=dream_title,
+                recommendations=recs
+            )
+            print(f"✓ Context built ({len(followup_context)} chars)")
+            print(f"Context preview: {followup_context[:200]}...")
+        except Exception as e:
+            print(f"✗ Error in get_followup_context_for_ai: {e}")
+            import traceback
+            traceback.print_exc()
+            raise
 
-        # Generate answer (NOTE: ai_agent.generate_followup only takes 1 param)
-        print(f"[FOLLOWUP] Calling AI agent...")
-        answer = ai_agent.generate_followup(followup_context)
-        print(f"[FOLLOWUP] Answer generated: {len(answer)} chars")
+        # Step 3: Generate answer
+        print("Step 3: Calling AI agent...")
+        try:
+            answer = ai_agent.generate_followup(followup_context)
+            print(f"✓ Answer generated ({len(answer)} chars)")
+        except Exception as e:
+            print(f"✗ Error in generate_followup: {e}")
+            import traceback
+            traceback.print_exc()
+            raise
 
+        print("=== FOLLOWUP SUCCESS ===")
         return jsonify({
             "success": True,
             "answer": answer
         })
 
     except Exception as e:
-        print(f"[FOLLOWUP ERROR] {type(e).__name__}: {str(e)}")
+        print(f"=== FOLLOWUP FAILED ===")
+        print(f"Error type: {type(e).__name__}")
+        print(f"Error message: {str(e)}")
         import traceback
         traceback.print_exc()
         
         return jsonify({
             "success": False,
-            "error": f"שגיאה: {str(e)}"
+            "error": f"שגיאה בשרת: {str(e)}"
         }), 500
 
 
@@ -162,6 +190,7 @@ def get_values():
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
+
 
 
 
