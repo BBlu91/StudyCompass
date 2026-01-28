@@ -165,7 +165,7 @@ class CareerAIAgent:
             ],
             model=self.model,
             temperature=0.3,
-            max_tokens=800,
+            max_tokens=1100,
         )
         
         print(f"[AI AGENT] ✓ Groq API call successful")
@@ -203,4 +203,5 @@ class CareerAIAgent:
             return "החיבור למערכת נכשל (timeout). אנא נסה שוב."
         else:
             return f"שגיאה בהפקת תשובה: {error_msg}"
+
 
